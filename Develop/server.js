@@ -42,3 +42,25 @@ app.post('/api/notes', (req, res) => {
     const newNote = createNewNote(req.body, db);
     res.json(newNote); // Respond to POST /api/notes with new note as JSON
 });
+// Delete by ID
+function deleteNote(id, notesArray) {
+    for (let i = 0; i < notesArray.length; i++) {
+        let note = notesArray[i];
+        if (note.id == id) {
+            notesArray.splice(i, 1);
+            fs.writeFileSync(
+                path.join(__dirname, './db/db.json'),
+                JSON.stringify(notesArray, null, 2)
+            );
+            break;
+        }
+    }
+}
+//DELETE /api/notes/:id
+app.delete('/api/notes/:id', (req, res) => {
+    deleteNote(req.params.id, db);
+    res.json(true); 
+});
+app.listen(PORT, () => {
+    console.log(`API server now on port ${PORT}!`); 
+});
