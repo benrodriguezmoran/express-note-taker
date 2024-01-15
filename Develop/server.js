@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html')); // HTML for root route
 });
 app.get('/api/notes', (req, res) => {
-    res.json(db.slice(1)); // GET /api/notes, ignore first bugged entry.
+    res.json(db); // GET /api/notes
 });
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html')); // HTML /notes route
@@ -23,14 +23,9 @@ app.get('/notes', (req, res) => {
 // Create note
 function createNewNote(body, notesArray) {
     const newNote = body;
-    if (!Array.isArray(notesArray))
-        notesArray = [];
-
-    if (notesArray.length === 0)
-        notesArray.push(0);
-
-    body.id = notesArray[0];
-    notesArray[0]++;
+    
+    
+    body.id = (Object.keys(notesArray).length>0 ? Object.keys(notesArray).length : 1);
     notesArray.push(newNote);
     fs.writeFileSync(
         path.join(__dirname, dbPath),
