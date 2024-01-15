@@ -3,12 +3,13 @@ const path = require('path'); // Import the 'path' module to work with file path
 const fs = require('fs'); // Import the 'fs' module for file system operations.
 const express = require('express');
 const app = express(); // Create an instance of the Express application.
-const db = require('./db/db.json'); // Import notes data from 'db.json'.
+const db = require('./public/db/db.json'); // Import notes data from 'db.json'.
+const dbPath = './public/db/db.json';
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public')); 
-
+// Routes
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html')); // HTML for root route
 });
@@ -19,7 +20,7 @@ app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html')); // HTML /notes route
 });
 
-// Create a note
+// Create note
 function createNewNote(body, notesArray) {
     const newNote = body;
     if (!Array.isArray(notesArray))
@@ -32,7 +33,7 @@ function createNewNote(body, notesArray) {
     notesArray[0]++;
     notesArray.push(newNote);
     fs.writeFileSync(
-        path.join(__dirname, './db/db.json'),
+        path.join(__dirname, dbPath),
         JSON.stringify(notesArray, null, 2)
     );
     return newNote;
@@ -49,7 +50,7 @@ function deleteNote(id, notesArray) {
         if (note.id == id) {
             notesArray.splice(i, 1);
             fs.writeFileSync(
-                path.join(__dirname, './db/db.json'),
+                path.join(__dirname, dbPath),
                 JSON.stringify(notesArray, null, 2)
             );
             break;
