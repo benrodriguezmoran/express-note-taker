@@ -23,7 +23,7 @@ Deployed site here
  - [Micah](https://github.com/G303K)
 ## License 
 
-    ![badge](https://img.shields.io/badge/license-MIT-blue.svg) [MIT Licensing](https://opensource.org/license/mit/)
+![badge](https://img.shields.io/badge/license-MIT-blue.svg) [MIT Licensing](https://opensource.org/license/mit/)
 
 ## Questions
 - Github [benrodriguezmoran](https://github.com/benrodriguezmoran) 
