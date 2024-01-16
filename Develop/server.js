@@ -25,7 +25,7 @@ function createNewNote(body, notesArray) {
     const newNote = body;
     
     
-    body.id = (Object.keys(notesArray).length>0 ? Object.keys(notesArray).length : 1);
+    body.id = (Object.keys(notesArray).length>0 ? Object.keys(notesArray).length : 0);
     notesArray.push(newNote);
     fs.writeFileSync(
         path.join(__dirname, dbPath),
